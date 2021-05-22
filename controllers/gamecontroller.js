@@ -1,7 +1,5 @@
 var router = require('express').Router();
 
-// var Game = require('../models/game');
-
 const Sequelize = require('sequelize');
 const sequelize = require('../db');
 const GameModel = require('../models/game');
@@ -41,6 +39,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
+  console.log('create', req.user.id);
   Game.create({
     title: req.body.game.title,
     owner_id: req.body.user.id,
