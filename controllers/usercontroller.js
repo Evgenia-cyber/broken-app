@@ -11,7 +11,6 @@ router.post('/signup', (req, res) => {
   User.create({
     full_name: req.body.user.full_name,
     username: req.body.user.username,
-    // passwordHash: bcrypt.hashSync(req.body.user.passwordHash, 10),
     passwordHash: bcrypt.hashSync(req.body.user.password, 10),
     email: req.body.user.email,
   }).then(
@@ -35,7 +34,6 @@ router.post('/signin', (req, res) => {
   User.findOne({ where: { username: req.body.user.username } }).then((user) => {
     if (user) {
       const matches = bcrypt.compareSync(
-        // req.body.user.passwordHash,
         req.body.user.password,
         user.passwordHash,
       );

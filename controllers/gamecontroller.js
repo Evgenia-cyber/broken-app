@@ -7,7 +7,7 @@ const Game = GameModel(sequelize, Sequelize);
 
 router.get('/all', (req, res) => {
   Game.findAll({ where: { owner_id: req.user.id } }).then(
-    function findSuccess(data) {
+    function findSuccess(games) {
       res.status(200).json({
         games: games,
         message: 'Data fetched.',
@@ -23,6 +23,7 @@ router.get('/all', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+  console.log('get', req.params.id, req.user.id);
   Game.findOne({ where: { id: req.params.id, owner_id: req.user.id } }).then(
     function findSuccess(game) {
       res.status(200).json({
@@ -42,7 +43,7 @@ router.post('/create', (req, res) => {
   console.log('create', req.user.id);
   Game.create({
     title: req.body.game.title,
-    owner_id: req.body.user.id,
+    owner_id: req.user.id,
     studio: req.body.game.studio,
     esrb_rating: req.body.game.esrb_rating,
     user_rating: req.body.game.user_rating,
@@ -62,6 +63,7 @@ router.post('/create', (req, res) => {
 });
 
 router.put('/update/:id', (req, res) => {
+  console.log('update', req.user.id);
   Game.update(
     {
       title: req.body.game.title,
@@ -73,7 +75,7 @@ router.put('/update/:id', (req, res) => {
     {
       where: {
         id: req.params.id,
-        owner_id: req.user,
+        owner_id: req.user.id,
       },
     },
   ).then(
