@@ -1,3 +1,4 @@
+// определяем модель Game
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('game', {
     title: {

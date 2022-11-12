@@ -1,3 +1,4 @@
+// определяем модель User
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('user', {
     full_name: {
